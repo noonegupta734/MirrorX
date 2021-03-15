@@ -1,6 +1,6 @@
 from .download_helper import DownloadHelper
 import time
-from youtube_dl import YoutubeDL, DownloadError
+from yt_dlp import YoutubeDL, DownloadError
 from bot import download_dict_lock, download_dict
 from ..status_utils.youtube_dl_download_status import YoutubeDLDownloadStatus
 import logging
@@ -43,7 +43,9 @@ class YoutubeDLHelper(DownloadHelper):
         self.opts = {
             'progress_hooks': [self.__onDownloadProgress],
             'logger': MyLogger(self),
-            'usenetrc': True
+            'usenetrc': True,
+            'external_downloader' : 'aria2c',
+            'allow_multiple_audio_streams' : True
         }
         self.__download_speed = 0
         self.download_speed_readable = ''
